@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.models import RunbookStep
-from app.simulate import simulate_runbook, simulate_runbook_steps, dry_run_runbook
+from app.agents.simulate import simulate_runbook, simulate_runbook_steps, dry_run_runbook
 
 router = APIRouter(prefix="/simulate", tags=["Agent Tools"])
 

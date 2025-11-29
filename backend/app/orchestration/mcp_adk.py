@@ -54,8 +54,8 @@ References:
 - Kaggle 5-Day AI Agents Course: Day 2b - Agent Tools Best Practices
 
 Usage:
-    from app.mcp_adk import handle_mcp_envelope, MCPEnvelopeRequest
-    from app.tools_adk import get_adk_tool
+    from app.orchestration.mcp_adk import handle_mcp_envelope, MCPEnvelopeRequest
+    from app.orchestration.tools_adk import get_adk_tool
 
     envelope = MCPEnvelopeRequest(
         id="req-1",
@@ -427,7 +427,7 @@ def _log_event(
     """
     try:
         # Try to use observability module if available
-        from app.observability import log_event
+        from app.core.observability import log_event
 
         log_event(event_type, data)
     except ImportError:

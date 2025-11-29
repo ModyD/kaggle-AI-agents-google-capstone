@@ -9,7 +9,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from app.explain import explain_incident
+from app.agents.explain import explain_incident
 from app.models import TriageExplanation
 
 router = APIRouter(prefix="/explain", tags=["Agent Tools"])

@@ -9,7 +9,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 
 from app.models import IncidentRequest, TriageResult
-from app.triage import score_incident, triage_incident, get_example_features
+from app.agents.triage import score_incident, triage_incident, get_example_features
 
 router = APIRouter(prefix="/triage", tags=["Agent Tools"])
 

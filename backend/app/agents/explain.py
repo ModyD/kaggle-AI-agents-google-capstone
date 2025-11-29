@@ -7,7 +7,7 @@ decisions using LLM-powered analysis.
 
 from typing import Any
 
-from app.chains import generate_explanation_chain
+from app.services.chains import generate_explanation_chain
 from app.config import is_llm_available
 
 

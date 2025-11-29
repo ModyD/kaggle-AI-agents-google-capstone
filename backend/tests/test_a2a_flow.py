@@ -50,7 +50,7 @@ class TestOrchestration:
     @pytest.mark.asyncio
     async def test_orchestrate_flow_returns_timeline(self, sample_incident):
         """Test that orchestration returns a timeline."""
-        from app.a2a import orchestrate_flow
+        from app.orchestration.a2a import orchestrate_flow
 
         timeline = await orchestrate_flow(
             incident_id=sample_incident.incident_id,
@@ -64,7 +64,7 @@ class TestOrchestration:
     @pytest.mark.asyncio
     async def test_orchestrate_flow_has_required_events(self, sample_incident):
         """Test that timeline contains required event types."""
-        from app.a2a import orchestrate_flow
+        from app.orchestration.a2a import orchestrate_flow
 
         timeline = await orchestrate_flow(
             incident_id=sample_incident.incident_id,
@@ -81,7 +81,7 @@ class TestOrchestration:
     @pytest.mark.asyncio
     async def test_orchestrate_flow_trace_id_consistent(self, sample_incident):
         """Test that all timeline entries have the same trace ID."""
-        from app.a2a import orchestrate_flow
+        from app.orchestration.a2a import orchestrate_flow
 
         timeline = await orchestrate_flow(
             incident_id=sample_incident.incident_id,
@@ -94,7 +94,7 @@ class TestOrchestration:
     @pytest.mark.asyncio
     async def test_orchestrate_flow_actors(self, sample_incident):
         """Test that timeline includes all expected actors."""
-        from app.a2a import orchestrate_flow
+        from app.orchestration.a2a import orchestrate_flow
 
         timeline = await orchestrate_flow(
             incident_id=sample_incident.incident_id,
@@ -110,7 +110,7 @@ class TestOrchestration:
     @pytest.mark.asyncio
     async def test_orchestrate_flow_timestamps_ordered(self, sample_incident):
         """Test that timeline entries are in chronological order."""
-        from app.a2a import orchestrate_flow
+        from app.orchestration.a2a import orchestrate_flow
 
         timeline = await orchestrate_flow(
             incident_id=sample_incident.incident_id,
@@ -129,7 +129,7 @@ class TestA2AMessages:
 
     def test_create_a2a_message(self):
         """Test A2A message creation."""
-        from app.a2a import create_a2a_message
+        from app.orchestration.a2a import create_a2a_message
 
         message = create_a2a_message(
             from_agent="triage_agent",
@@ -147,7 +147,7 @@ class TestA2AMessages:
 
     def test_create_timeline_entry(self):
         """Test timeline entry creation."""
-        from app.a2a import create_timeline_entry
+        from app.orchestration.a2a import create_timeline_entry
 
         entry = create_timeline_entry(
             actor="policy_agent",
@@ -168,7 +168,7 @@ class TestFullFlowResponse:
     @pytest.mark.asyncio
     async def test_full_flow_returns_all_artifacts(self, sample_incident):
         """Test that full flow returns all expected artifacts."""
-        from app.a2a import orchestrate_flow_full
+        from app.orchestration.a2a import orchestrate_flow_full
         from app.models import FlowRequest
 
         request = FlowRequest(incident=sample_incident)
@@ -184,8 +184,8 @@ class TestFullFlowResponse:
     @pytest.mark.asyncio
     async def test_full_flow_triage_matches_standalone(self, sample_incident):
         """Test that flow triage matches standalone triage."""
-        from app.a2a import orchestrate_flow_full
-        from app.triage import score_incident
+        from app.orchestration.a2a import orchestrate_flow_full
+        from app.agents.triage import score_incident
 
         # Standalone triage
         label, score, contribs = score_incident(sample_incident.features)

@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.models import RunbookResponse, RunbookStep
-from app.policy import policy_check, policy_is_safe, get_policy_rules, validate_custom_runbook
+from app.agents.policy import policy_check, policy_is_safe, get_policy_rules, validate_custom_runbook
 
 router = APIRouter(prefix="/policy", tags=["Agent Tools"])
 

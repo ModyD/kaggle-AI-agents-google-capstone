@@ -11,8 +11,8 @@ import pytest
 from typing import Any
 
 # Import modules under test
-from app.triage import score_incident, normalize_features, get_example_features
-from app.policy import policy_check, policy_is_safe, find_forbidden_match
+from app.agents.triage import score_incident, normalize_features, get_example_features
+from app.agents.policy import policy_check, policy_is_safe, find_forbidden_match
 from app.models import RunbookResponse, RunbookStep
 
 
@@ -309,7 +309,7 @@ class TestSimulation:
     @pytest.mark.asyncio
     async def test_simulation_event_count(self):
         """Test that simulation produces correct number of events."""
-        from app.simulate import simulate_runbook
+        from app.agents.simulate import simulate_runbook
 
         runbook = {
             "runbook": [
@@ -327,7 +327,7 @@ class TestSimulation:
     @pytest.mark.asyncio
     async def test_simulation_has_start_and_end(self):
         """Test that simulation has start and end events."""
-        from app.simulate import simulate_runbook
+        from app.agents.simulate import simulate_runbook
 
         runbook = {
             "runbook": [{"step": "Test step action", "why": "Test reason here", "risk": "low"}],
@@ -343,7 +343,7 @@ class TestSimulation:
     @pytest.mark.asyncio
     async def test_simulation_events_have_trace_id(self):
         """Test that all events have trace IDs."""
-        from app.simulate import simulate_runbook
+        from app.agents.simulate import simulate_runbook
 
         runbook = {
             "runbook": [{"step": "Test step action", "why": "Test reason", "risk": "low"}],
@@ -358,7 +358,7 @@ class TestSimulation:
     @pytest.mark.asyncio
     async def test_simulation_outcomes(self):
         """Test that simulation produces valid outcomes."""
-        from app.simulate import simulate_runbook
+        from app.agents.simulate import simulate_runbook
 
         runbook = {
             "runbook": [
@@ -394,9 +394,9 @@ class TestTriagePolicyIntegration:
     @pytest.mark.asyncio
     async def test_full_flow_mock(self, high_severity_features):
         """Test a simplified version of the full flow."""
-        from app.triage import score_incident
-        from app.chains import get_stub_runbook
-        from app.policy import policy_check
+        from app.agents.triage import score_incident
+        from app.services.chains import get_stub_runbook
+        from app.agents.policy import policy_check
 
         # Triage
         label, score, contribs = score_incident(high_severity_features)

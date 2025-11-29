@@ -192,7 +192,7 @@ async def get_similar_runbooks(
         >>> for r in results:
         ...     print(f"{r['score']:.2f}: {r['text'][:50]}...")
     """
-    from app.db import query_similar_runbooks
+    from app.core.db import query_similar_runbooks
 
     # Generate query embedding
     query_embedding = await embed_text(text)

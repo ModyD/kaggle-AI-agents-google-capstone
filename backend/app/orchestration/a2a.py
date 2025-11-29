@@ -26,7 +26,7 @@ from app.models import (
     TimelineEntry,
     TriageResult,
 )
-from app.observability import get_logger, log_a2a_message, log_event, set_trace_id
+from app.core.observability import get_logger, log_a2a_message, log_event, set_trace_id
 
 
 logger = get_logger("a2a")
@@ -125,7 +125,7 @@ async def call_triage_agent(
     Returns:
         Tuple of (TriageResult, TimelineEntry)
     """
-    from app.triage import score_incident
+    from app.agents.triage import score_incident
 
     # Create request message
     create_a2a_message(
@@ -177,7 +177,7 @@ async def call_explain_agent(
     Returns:
         Tuple of (explanation dict, TimelineEntry)
     """
-    from app.explain import explain_incident
+    from app.agents.explain import explain_incident
 
     # Create request message
     create_a2a_message(
@@ -232,7 +232,7 @@ async def call_runbook_agent(
     Returns:
         Tuple of (RunbookResponse, TimelineEntry)
     """
-    from app.runbook import generate_runbook
+    from app.agents.runbook import generate_runbook
 
     # Create request message
     create_a2a_message(
@@ -285,7 +285,7 @@ async def call_policy_agent(
     Returns:
         Tuple of (policy result dict, TimelineEntry)
     """
-    from app.policy import policy_check
+    from app.agents.policy import policy_check
 
     # Create request message
     create_a2a_message(
@@ -336,7 +336,7 @@ async def call_simulator_agent(
     Returns:
         Tuple of (simulation events, list of TimelineEntries)
     """
-    from app.simulate import simulate_runbook
+    from app.agents.simulate import simulate_runbook
 
     # Create request message
     create_a2a_message(
@@ -537,10 +537,10 @@ async def orchestrate_flow_full(
     trace_id = uuid4().hex
     set_trace_id(trace_id)
 
-    from app.explain import explain_incident
-    from app.policy import policy_check
-    from app.runbook import generate_runbook
-    from app.triage import score_incident
+    from app.agents.explain import explain_incident
+    from app.agents.policy import policy_check
+    from app.agents.runbook import generate_runbook
+    from app.agents.triage import score_incident
 
     # Triage
     label, score, contribs = score_incident(incident.features)

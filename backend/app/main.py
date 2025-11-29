@@ -27,8 +27,8 @@ from fastapi.responses import JSONResponse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.config import get_settings
-from app.db import close_pg_pool, close_redis, init_pg_pool
-from app.observability import (
+from app.core.db import close_pg_pool, close_redis, init_pg_pool
+from app.core.observability import (
     configure_logging,
     get_logger,
     log_event,
@@ -45,6 +45,7 @@ from api.routes_simulate import router as simulate_router
 from api.routes_flow import router as flow_router
 from api.routes_health import router as health_router
 from api.routes_mcp import router as mcp_router
+from api.routes_extra import router as extra_router
 
 
 # =============================================================================
@@ -79,6 +80,33 @@ async def lifespan(app: FastAPI):
         logger.info("Database pool initialized")
     except Exception as e:
         logger.warning(f"Database initialization failed: {e}")
+
+    # Initialize LongRunningManager and store in app state
+    try:
+        from app.orchestration.long_running_manager import LongRunningManager
+        app.state.long_running_manager = LongRunningManager()
+        logger.info("LongRunningManager initialized")
+    except Exception as e:
+        logger.warning(f"LongRunningManager initialization failed: {e}")
+
+    # Register Vertex AI demo tools (optional)
+    try:
+        from app.orchestration.built_in_tools_demo import register_vertex_tools
+        register_vertex_tools()
+        logger.info("Vertex demo tools registered")
+    except Exception as e:
+        logger.debug(f"Vertex tools registration skipped: {e}")
+
+    # TODO: Start periodic context compaction task
+    # async def periodic_compaction():
+    #     while True:
+    #         await asyncio.sleep(300)  # Every 5 minutes
+    #         # Compact active sessions
+    # asyncio.create_task(periodic_compaction())
+
+    # TODO: Restore metrics from Redis on startup
+    # from app.services.agent_evaluation import restore_metrics_from_redis
+    # await restore_metrics_from_redis()
 
     logger.info("Application startup complete")
 
@@ -178,6 +206,7 @@ implementing a multi-agent system for security incident response.
     app.include_router(simulate_router)
     app.include_router(flow_router)
     app.include_router(mcp_router)
+    app.include_router(extra_router)
 
     # Add middleware for trace ID propagation
     @app.middleware("http")

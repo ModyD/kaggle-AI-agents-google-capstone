@@ -41,12 +41,12 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from app.mcp_adk import (
+from app.orchestration.mcp_adk import (
     MCPEnvelopeRequest,
     MCPEnvelopeResponse,
     handle_mcp_envelope,
 )
-from app.tools_adk import (
+from app.orchestration.tools_adk import (
     get_adk_tool,
     list_adk_tools,
     register_default_tools,

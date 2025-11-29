@@ -47,44 +47,73 @@ A sophisticated AI-powered security incident response system built for the **Kag
 
 ```
 backend/
-├── app/                    # Core application modules
+├── app/                        # Core application package
 │   ├── __init__.py
-│   ├── config.py          # Settings management (pydantic-settings)
-│   ├── models.py          # Pydantic v2 data models
-│   ├── triage.py          # Rule-based scoring engine
-│   ├── explain.py         # LLM explanation generation
-│   ├── runbook.py         # RAG-enhanced runbook generation
-│   ├── rag.py             # Vector similarity search
-│   ├── policy.py          # Safety verification & rewriting
-│   ├── simulate.py        # Runbook execution simulation
-│   ├── db.py              # Database connections (Neon + Redis)
-│   ├── a2a.py             # Agent-to-agent orchestration
-│   ├── chains.py          # LangChain Gemini integration
-│   ├── observability.py   # Structured logging & metrics
-│   ├── mcp_adk.py         # MCP envelope handler (ADK compatible)
-│   ├── tools_adk.py       # Tool registry with @adk_tool decorator
-│   └── main.py            # FastAPI application factory
-├── api/                    # Route handlers
+│   ├── config.py               # Settings management (pydantic-settings)
+│   ├── models.py               # Pydantic v2 data models
+│   ├── main.py                 # FastAPI application factory
+│   │
+│   ├── core/                   # Infrastructure modules
+│   │   ├── __init__.py
+│   │   ├── db.py               # Database connections (Neon PostgreSQL + Redis)
+│   │   └── observability.py    # Structured logging, metrics & tracing
+│   │
+│   ├── agents/                 # Agent implementations
+│   │   ├── __init__.py
+│   │   ├── triage.py           # Rule-based incident scoring engine
+│   │   ├── explain.py          # LLM-powered explanation generation
+│   │   ├── runbook.py          # RAG-enhanced runbook generation
+│   │   ├── policy.py           # Safety verification & command rewriting
+│   │   └── simulate.py         # Runbook execution simulation
+│   │
+│   ├── services/               # Business logic services
+│   │   ├── __init__.py
+│   │   ├── chains.py           # LangChain Gemini integration
+│   │   ├── rag.py              # Vector similarity search & embeddings
+│   │   ├── memory_bank.py      # Vector memory storage
+│   │   ├── context_compaction.py # Context window management
+│   │   └── agent_evaluation.py # Agent metrics & evaluation
+│   │
+│   └── orchestration/          # Orchestration & protocols
+│       ├── __init__.py
+│       ├── a2a.py              # Agent-to-agent orchestration
+│       ├── mcp_adk.py          # MCP envelope handler (ADK compatible)
+│       ├── tools_adk.py        # Tool registry with @adk_tool decorator
+│       ├── long_running_manager.py # Background job management
+│       └── built_in_tools_demo.py  # Vertex AI tools demo
+│
+├── api/                        # FastAPI route handlers
 │   ├── __init__.py
-│   ├── routes_triage.py   # POST /triage
-│   ├── routes_explain.py  # POST /explain
-│   ├── routes_runbook.py  # POST /runbook
-│   ├── routes_policy.py   # POST /policy/check, POST /policy/rewrite
-│   ├── routes_simulate.py # POST /simulate
-│   ├── routes_flow.py     # POST /flow/simulate
-│   ├── routes_mcp.py      # MCP endpoints (/mcp/invoke, /mcp/tools)
-│   └── routes_health.py   # GET /health, GET /ready
-├── tests/                  # Pytest test suite
+│   ├── routes_triage.py        # POST /triage
+│   ├── routes_explain.py       # POST /explain
+│   ├── routes_runbook.py       # POST /runbook
+│   ├── routes_policy.py        # POST /policy/check, POST /policy/rewrite
+│   ├── routes_simulate.py      # POST /simulate
+│   ├── routes_flow.py          # POST /flow/simulate
+│   ├── routes_mcp.py           # MCP endpoints (/mcp/invoke, /mcp/tools)
+│   ├── routes_extra.py         # Memory, jobs, metrics endpoints
+│   └── routes_health.py        # GET /health, GET /ready
+│
+├── tests/                      # Pytest test suite (75 tests)
 │   ├── conftest.py
-│   ├── test_triage_policy.py
-│   ├── test_a2a_flow.py
-│   ├── test_runbook_stub.py
-│   └── test_mcp_adk.py    # MCP integration tests
-├── Dockerfile             # Cloud Run optimized multi-stage build
-├── cloudrun_deploy.sh     # Deployment script with smoke tests
-├── pyproject.toml         # Project config & dependencies (uv)
-├── requirements.txt       # Fallback pip dependencies
-└── README.md              # This file
+│   ├── test_triage_policy.py   # Triage & policy tests
+│   ├── test_a2a_flow.py        # A2A orchestration tests
+│   ├── test_runbook_stub.py    # Runbook generation tests
+│   └── test_mcp_adk.py         # MCP integration tests
+│
+├── scripts/                    # Utility scripts
+│   └── test_neon_connection.py # Database connection test
+│
+├── infra/                      # Database migrations
+│   ├── 01_create_app_schema.sql
+│   ├── 02_create_runbooks_table.sql
+│   └── 03_sync_neon_auth_users.sql
+│
+├── Dockerfile                  # Cloud Run optimized multi-stage build
+├── cloudrun_deploy.sh          # Deployment script with smoke tests
+├── pyproject.toml              # Project config & dependencies (uv)
+├── requirements.txt            # Fallback pip dependencies
+└── README.md                   # This file
 ```
 
 ## 🚀 Quick Start

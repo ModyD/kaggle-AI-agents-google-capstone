@@ -9,7 +9,7 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
-from app.a2a import orchestrate_flow, orchestrate_flow_full
+from app.orchestration.a2a import orchestrate_flow, orchestrate_flow_full
 from app.models import FlowRequest, FlowResponse, IncidentRequest, TimelineEntry
 
 router = APIRouter(prefix="/flow", tags=["Agent Tools"])

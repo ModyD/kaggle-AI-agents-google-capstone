@@ -16,14 +16,14 @@ import asyncio
 import pytest
 from unittest.mock import AsyncMock, patch
 
-from app.mcp_adk import (
+from app.orchestration.mcp_adk import (
     MCPEnvelopeRequest,
     MCPEnvelopeResponse,
     handle_mcp_envelope,
     redact_secrets,
     sanitize_for_logging,
 )
-from app.tools_adk import (
+from app.orchestration.tools_adk import (
     register_adk_tool,
     get_adk_tool,
     list_adk_tools,

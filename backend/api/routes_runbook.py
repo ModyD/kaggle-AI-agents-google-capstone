@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.models import RunbookResponse
-from app.runbook import generate_runbook, generate_runbook_from_description, get_template_runbook
+from app.agents.runbook import generate_runbook, generate_runbook_from_description, get_template_runbook
 
 router = APIRouter(prefix="/runbook", tags=["Agent Tools"])
 

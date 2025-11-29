@@ -7,10 +7,10 @@ and uses them as context for generating incident-specific response steps.
 
 from typing import Any
 
-from app.chains import generate_runbook_chain, get_stub_runbook
+from app.services.chains import generate_runbook_chain, get_stub_runbook
 from app.config import is_db_available, is_llm_available
 from app.models import RunbookResponse
-from app.rag import get_similar_runbooks
+from app.services.rag import get_similar_runbooks
 
 
 async def generate_runbook(

@@ -51,7 +51,7 @@ class TestStubRunbook:
 
     def test_stub_runbook_high_severity(self, high_severity_context):
         """Test stub runbook for high severity."""
-        from app.chains import get_stub_runbook
+        from app.services.chains import get_stub_runbook
 
         runbook = get_stub_runbook(
             high_severity_context["label"],
@@ -64,7 +64,7 @@ class TestStubRunbook:
 
     def test_stub_runbook_low_severity(self, low_severity_context):
         """Test stub runbook for low severity."""
-        from app.chains import get_stub_runbook
+        from app.services.chains import get_stub_runbook
 
         runbook = get_stub_runbook(
             low_severity_context["label"],
@@ -77,7 +77,7 @@ class TestStubRunbook:
 
     def test_stub_runbook_steps_valid(self, high_severity_context):
         """Test that stub runbook steps are valid."""
-        from app.chains import get_stub_runbook
+        from app.services.chains import get_stub_runbook
 
         runbook = get_stub_runbook(
             high_severity_context["label"],
@@ -96,7 +96,7 @@ class TestStubExplanation:
 
     def test_stub_explanation_structure(self, high_severity_context):
         """Test stub explanation has correct structure."""
-        from app.chains import get_stub_explanation
+        from app.services.chains import get_stub_explanation
 
         explanation = get_stub_explanation(
             high_severity_context["label"],
@@ -112,7 +112,7 @@ class TestStubExplanation:
 
     def test_stub_explanation_mentions_severity(self, high_severity_context):
         """Test that explanation mentions the severity level."""
-        from app.chains import get_stub_explanation
+        from app.services.chains import get_stub_explanation
 
         explanation = get_stub_explanation(
             high_severity_context["label"],
@@ -134,7 +134,7 @@ class TestRunbookGeneration:
     @pytest.mark.asyncio
     async def test_generate_runbook_returns_response(self, high_severity_context):
         """Test that generate_runbook returns a valid response."""
-        from app.runbook import generate_runbook
+        from app.agents.runbook import generate_runbook
 
         runbook = await generate_runbook(
             features=high_severity_context["features"],
@@ -149,7 +149,7 @@ class TestRunbookGeneration:
     @pytest.mark.asyncio
     async def test_generate_runbook_from_description(self):
         """Test runbook generation from description."""
-        from app.runbook import generate_runbook_from_description
+        from app.agents.runbook import generate_runbook_from_description
 
         runbook = await generate_runbook_from_description(
             description="Suspected ransomware infection with encrypted files",
@@ -162,7 +162,7 @@ class TestRunbookGeneration:
     @pytest.mark.asyncio
     async def test_template_runbook_brute_force(self):
         """Test template runbook for brute force."""
-        from app.runbook import get_template_runbook
+        from app.agents.runbook import get_template_runbook
 
         runbook = await get_template_runbook("brute_force")
 
@@ -173,7 +173,7 @@ class TestRunbookGeneration:
     @pytest.mark.asyncio
     async def test_template_runbook_malware(self):
         """Test template runbook for malware."""
-        from app.runbook import get_template_runbook
+        from app.agents.runbook import get_template_runbook
 
         runbook = await get_template_runbook("malware")
 
@@ -183,7 +183,7 @@ class TestRunbookGeneration:
     @pytest.mark.asyncio
     async def test_template_runbook_default(self):
         """Test default template runbook."""
-        from app.runbook import get_template_runbook
+        from app.agents.runbook import get_template_runbook
 
         runbook = await get_template_runbook("unknown_type")
 
@@ -201,7 +201,7 @@ class TestRetrievalQuery:
 
     def test_build_query_includes_severity(self, high_severity_context):
         """Test that query includes severity level."""
-        from app.runbook import build_retrieval_query
+        from app.agents.runbook import build_retrieval_query
 
         query = build_retrieval_query(
             features=high_severity_context["features"],
@@ -213,7 +213,7 @@ class TestRetrievalQuery:
 
     def test_build_query_includes_indicators(self, high_severity_context):
         """Test that query includes contributing factors."""
-        from app.runbook import build_retrieval_query
+        from app.agents.runbook import build_retrieval_query
 
         query = build_retrieval_query(
             features=high_severity_context["features"],

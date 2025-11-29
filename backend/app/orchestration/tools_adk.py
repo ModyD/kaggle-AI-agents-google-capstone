@@ -34,7 +34,7 @@ Usage:
         return {"result": inputs["value"] * 2}
 
     # Register sync function
-    from app.triage import score_incident
+    from app.agents.triage import score_incident
     register_adk_tool("triage", wrap_sync(score_incident, input_key="features"))
 
     # Get and invoke tool
@@ -294,7 +294,7 @@ def register_default_tools() -> None:
 
     # Triage tool - sync function wrapped
     try:
-        from app.triage import score_incident
+        from app.agents.triage import score_incident
 
         register_adk_tool("triage", wrap_sync(score_incident, input_key="features"))
         _logger.debug("Registered: triage")
@@ -303,7 +303,7 @@ def register_default_tools() -> None:
 
     # Policy check tool - sync function wrapped
     try:
-        from app.policy import policy_check_dict
+        from app.agents.policy import policy_check_dict
 
         register_adk_tool("policy_check", wrap_sync(policy_check_dict, input_key="runbook"))
         _logger.debug("Registered: policy_check")
@@ -314,7 +314,7 @@ def register_default_tools() -> None:
     @adk_tool("explain")
     async def explain_tool(inputs: dict, context: dict) -> dict:
         """Generate explanation for triage result."""
-        from app.explain import generate_explanation
+        from app.agents.explain import generate_explanation
 
         features = inputs.get("features", {})
         triage_result = inputs.get("triage_result", {})
@@ -331,7 +331,7 @@ def register_default_tools() -> None:
     @adk_tool("runbook")
     async def runbook_tool(inputs: dict, context: dict) -> dict:
         """Generate runbook steps for incident response."""
-        from app.runbook import generate_runbook
+        from app.agents.runbook import generate_runbook
 
         features = inputs.get("features", {})
         explanation = inputs.get("explanation", "")
@@ -348,7 +348,7 @@ def register_default_tools() -> None:
     @adk_tool("simulate")
     async def simulate_tool(inputs: dict, context: dict) -> dict:
         """Simulate runbook execution."""
-        from app.simulate import simulate_runbook
+        from app.agents.simulate import simulate_runbook
 
         runbook = inputs.get("runbook", {})
         trace_id = context.get("trace_id")
