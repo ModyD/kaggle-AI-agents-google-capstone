@@ -1,0 +1,39 @@
+# =============================================================================
+# Enterprise Security Incident Triage & Autonomous Runbook Agent
+# Python Dependencies
+# =============================================================================
+# 
+# MINIMAL install (API only, stub mode):
+#   pip install -r requirements.txt
+#
+# WITH LLM (Vertex AI/Gemini):
+#   pip install -r requirements.txt -r requirements-llm.txt
+#
+# FULL install (databases, observability):
+#   pip install -r requirements.txt -r requirements-full.txt
+#
+# Or use pyproject.toml with uv:
+#   uv sync                    # minimal
+#   uv sync --extra llm        # with LLM
+#   uv sync --extra all        # full install
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Core Framework (always required)
+# -----------------------------------------------------------------------------
+fastapi>=0.109.0,<0.120.0
+uvicorn[standard]>=0.27.0,<0.35.0
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+
+# -----------------------------------------------------------------------------
+# HTTP & Async
+# -----------------------------------------------------------------------------
+httpx>=0.26.0,<0.29.0
+tenacity>=8.2.0,<10.0.0
+
+# -----------------------------------------------------------------------------
+# Utilities
+# -----------------------------------------------------------------------------
+python-dotenv>=1.0.0,<2.0.0
+python-multipart>=0.0.6,<1.0.0

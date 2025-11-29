@@ -1,0 +1,24 @@
+# =============================================================================
+# Full Dependencies (Database + Observability)
+# =============================================================================
+# Install with: pip install -r requirements-full.txt
+#
+# Includes: LLM + Database + Observability
+
+# LLM
+-r requirements-llm.txt
+
+# Database (PostgreSQL + Redis)
+asyncpg>=0.29.0,<0.31.0
+psycopg2-binary>=2.9.9,<3.0.0
+pgvector>=0.2.4,<0.4.0
+redis>=5.0.0,<6.0.0
+upstash-redis>=1.0.0,<2.0.0
+sqlalchemy>=2.0.0,<3.0.0
+
+# Observability
+structlog>=24.1.0,<25.0.0
+opentelemetry-api>=1.22.0,<2.0.0
+opentelemetry-sdk>=1.22.0,<2.0.0
+opentelemetry-instrumentation-fastapi>=0.43b0,<1.0.0
+langsmith>=0.0.87,<1.0.0
