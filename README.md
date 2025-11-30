@@ -3,6 +3,14 @@
 [![Cloud Run](https://img.shields.io/badge/Cloud%20Run-Live-green?logo=google-cloud)](https://incident-triage-agent-226861216522.us-central1.run.app)
 [![API Docs](https://img.shields.io/badge/API-Docs-blue?logo=swagger)](https://incident-triage-agent-226861216522.us-central1.run.app/docs)
 
+<!--
+Source - https://stackoverflow.com/a/14747656
+Posted by Tieme, modified by community. See post 'Timeline' for change history
+Retrieved 2025-12-01, License - CC BY-SA 4.0
+-->
+
+<img src="images/Card.png" alt="card" height="620" width="872"/>
+
 A sophisticated AI-powered security incident response system built for the **Kaggle 5-Day AI Agents Intensive Course Capstone Competition** (Enterprise Agents track).
 
 ## 🌐 Live Deployment
