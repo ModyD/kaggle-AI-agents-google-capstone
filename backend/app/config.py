@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     # Google Cloud / Vertex AI
     google_cloud_project: Optional[str] = None
     google_cloud_location: str = "us-central1"
-    vertex_ai_model: str = "gemini-1.5-flash"
+    vertex_ai_model: str = "gemini-3-pro-preview"
     vertex_embedding_model: str = "text-embedding-004"
 
     # Database (Neon PostgreSQL with pgvector)

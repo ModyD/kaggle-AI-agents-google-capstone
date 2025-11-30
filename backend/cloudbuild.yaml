@@ -1,0 +1,73 @@
+# =============================================================================
+# Cloud Build configuration for CI/CD to Cloud Run
+# =============================================================================
+# Trigger: Push to master branch
+# Build context: /backend directory
+# Deploy to: Cloud Run (us-central1)
+# =============================================================================
+
+steps:
+  # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/security-agent:$COMMIT_SHA"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/security-agent:latest"
+      - "."
+    dir: "backend"
+
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/security-agent:$COMMIT_SHA"
+    dir: "backend"
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/security-agent:latest"
+    dir: "backend"
+
+  # Deploy to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "security-agent"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/security-agent:$COMMIT_SHA"
+      - "--region"
+      - "us-central1"
+      - "--platform"
+      - "managed"
+      - "--allow-unauthenticated"
+      - "--memory"
+      - "512Mi"
+      - "--cpu"
+      - "1"
+      - "--timeout"
+      - "60s"
+      - "--concurrency"
+      - "80"
+      - "--min-instances"
+      - "0"
+      - "--max-instances"
+      - "10"
+      - "--set-env-vars"
+      - "APP_ENV=production,DEBUG=false,USE_STUB_LLM=false,LOG_LEVEL=INFO,JSON_LOGS=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-3-pro-preview"
+      # For secrets, uncomment and configure:
+      # - '--set-secrets'
+      # - 'NEON_DATABASE_URL=neon-database-url:latest,UPSTASH_REDIS_REST_URL=upstash-redis-url:latest,UPSTASH_REDIS_REST_TOKEN=upstash-redis-token:latest'
+
+# Store images in Container Registry
+images:
+  - "gcr.io/$PROJECT_ID/security-agent:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/security-agent:latest"
+
+# Build options
+options:
+  logging: CLOUD_LOGGING_ONLY

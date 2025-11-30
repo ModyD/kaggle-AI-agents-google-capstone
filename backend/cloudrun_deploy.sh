@@ -6,11 +6,22 @@
 
 set -e
 
-# Configuration (override with environment variables)
-SERVICE_NAME="${SERVICE_NAME:-security-agent}"
-PROJECT_ID="${PROJECT_ID:-}"
-REGION="${REGION:-us-central1}"
-IMAGE_NAME="${IMAGE_NAME:-gcr.io/${PROJECT_ID}/${SERVICE_NAME}}"
+# Load environment variables from .env file (root or backend)
+if [ -f "../.env" ]; then
+    set -a
+    source "../.env"
+    set +a
+elif [ -f ".env" ]; then
+    set -a
+    source ".env"
+    set +a
+fi
+
+# Configuration (uses env vars from .env, with fallbacks)
+SERVICE_NAME="${SERVICE_NAME:-${APP_NAME:-security-agent}}"
+PROJECT_ID="${PROJECT_ID:-${GOOGLE_CLOUD_PROJECT}}"
+REGION="${REGION:-${GOOGLE_CLOUD_LOCATION:-us-central1}}"
+# IMAGE_NAME is set after PROJECT_ID validation to avoid empty project in path
 
 # Colors for output
 RED='\033[0;31m'
@@ -38,6 +49,9 @@ check_requirements() {
         echo "Usage: PROJECT_ID=your-project-id ./cloudrun_deploy.sh"
         exit 1
     fi
+
+    # Set IMAGE_NAME after PROJECT_ID is validated
+    IMAGE_NAME="${IMAGE_NAME:-gcr.io/${PROJECT_ID}/${SERVICE_NAME}}"
 
     # Check if gcloud is installed
     if ! command -v gcloud &> /dev/null; then
@@ -81,10 +95,34 @@ deploy_service() {
     # Environment variables to pass to Cloud Run
     # For secrets, use Secret Manager references: --set-secrets=VAR=secret-name:version
     ENV_VARS=""
-    ENV_VARS="${ENV_VARS}FRONTEND_URL=${FRONTEND_URL:-https://your-frontend.vercel.app},"
+    ENV_VARS="${ENV_VARS}APP_ENV=production,"
+    ENV_VARS="${ENV_VARS}APP_NAME=${SERVICE_NAME},"
+    ENV_VARS="${ENV_VARS}DEBUG=false,"
     ENV_VARS="${ENV_VARS}USE_STUB_LLM=${USE_STUB_LLM:-false},"
+    ENV_VARS="${ENV_VARS}LOG_LEVEL=${LOG_LEVEL:-INFO},"
+    ENV_VARS="${ENV_VARS}JSON_LOGS=true,"
+    ENV_VARS="${ENV_VARS}FRONTEND_URL=${FRONTEND_URL:-},"
     ENV_VARS="${ENV_VARS}GOOGLE_CLOUD_PROJECT=${PROJECT_ID},"
-    ENV_VARS="${ENV_VARS}GOOGLE_CLOUD_LOCATION=${REGION}"
+    ENV_VARS="${ENV_VARS}GOOGLE_CLOUD_LOCATION=${REGION},"
+    ENV_VARS="${ENV_VARS}VERTEX_AI_MODEL=${VERTEX_AI_MODEL},"
+    ENV_VARS="${ENV_VARS}VERTEX_EMBEDDING_MODEL=${VERTEX_EMBEDDING_MODEL}"
+
+    # Secrets from Secret Manager (must be created first)
+    # Create secrets with: gcloud secrets create SECRET_NAME --data-file=- <<< "value"
+    # For now, pass directly from env (move to Secret Manager for production)
+    SECRETS=""
+    if [ -n "${NEON_DATABASE_URL}" ]; then
+        ENV_VARS="${ENV_VARS},NEON_DATABASE_URL=${NEON_DATABASE_URL}"
+    fi
+    if [ -n "${UPSTASH_REDIS_REST_URL}" ]; then
+        ENV_VARS="${ENV_VARS},UPSTASH_REDIS_REST_URL=${UPSTASH_REDIS_REST_URL}"
+    fi
+    if [ -n "${UPSTASH_REDIS_REST_TOKEN}" ]; then
+        ENV_VARS="${ENV_VARS},UPSTASH_REDIS_REST_TOKEN=${UPSTASH_REDIS_REST_TOKEN}"
+    fi
+    if [ -n "${SECRET_KEY}" ]; then
+        ENV_VARS="${ENV_VARS},SECRET_KEY=${SECRET_KEY}"
+    fi
 
     # Deploy command
     gcloud run deploy "${SERVICE_NAME}" \

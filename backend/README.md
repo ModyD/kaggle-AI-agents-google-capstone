@@ -2,17 +2,29 @@
 
 A sophisticated AI-powered security incident response system built for the **Kaggle 5-Day AI Agents Intensive Course Capstone** (Enterprise Agents track). This backend demonstrates multi-agent orchestration, automated runbook generation, and human-in-the-loop safety controls.
 
-## 🎯 Competition Concepts Demonstrated
+## 🌐 Live Deployment
 
-| Concept                | Implementation                                            |
-| ---------------------- | --------------------------------------------------------- |
-| **Multi-Agent System** | Orchestrated Triage → Explain → Runbook → Simulate agents |
-| **Tool Use**           | LLM chains with structured Pydantic output parsing        |
-| **MCP Protocol**       | Google ADK-style envelope format for tool invocation      |
-| **Sessions & Memory**  | Redis-backed session state, A2A message timeline          |
-| **Observability**      | Structured JSON logging, trace IDs, LangSmith-ready       |
-| **A2A Protocol**       | Custom agent-to-agent JSON messaging format               |
-| **Deployment**         | Docker + Cloud Run optimized configuration                |
+**Production API:** https://incident-triage-agent-226861216522.us-central1.run.app
+
+- **API Docs:** https://incident-triage-agent-226861216522.us-central1.run.app/docs
+- **Health Check:** https://incident-triage-agent-226861216522.us-central1.run.app/health
+
+## 📋 Kaggle Capstone Feature Checklist
+
+**Requirement:** At least 3 features must be implemented ✅ **We have 10!**
+
+| #   | Feature                                  | Status | Implementation                                                                     |
+| --- | ---------------------------------------- | ------ | ---------------------------------------------------------------------------------- |
+| 1   | **Multi-Agent Orchestration**            | ✅     | `app/orchestration/a2a.py` - Triage → Explain → Runbook → Policy → Simulate        |
+| 2   | **Tool Use / Function Calling**          | ✅     | `app/orchestration/tools_adk.py` - `@adk_tool` decorator, structured tool registry |
+| 3   | **MCP Protocol**                         | ✅     | `app/orchestration/mcp_adk.py` - Google ADK-style envelope format                  |
+| 4   | **Sessions & Memory**                    | ✅     | `app/services/memory_bank.py` - Redis-backed session state, A2A message timeline   |
+| 5   | **RAG (Retrieval Augmented Generation)** | ✅     | `app/services/rag.py` - pgvector similarity search for runbooks                    |
+| 6   | **Agentic Loops**                        | ✅     | `app/orchestration/a2a.py` - Iterative agent pipeline with flow control            |
+| 7   | **Agent Evaluation**                     | ✅     | `app/services/agent_evaluation.py` - Metrics & evaluation framework                |
+| 8   | **Observability / Tracing**              | ✅     | `app/core/observability.py` - Structured JSON logging, trace IDs, LangSmith-ready  |
+| 9   | **Human-in-the-Loop**                    | ✅     | `app/agents/policy.py` - Safety checks, command rewriting, approval gates          |
+| 10  | **Deployment**                           | ✅     | Cloud Run: https://incident-triage-agent-226861216522.us-central1.run.app          |
 
 ## 🏗️ Architecture
 

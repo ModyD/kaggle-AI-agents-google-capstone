@@ -8,7 +8,15 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment files (contain secrets)
 .env
+.env.local
+.env.development
+.env.production
+!.env.example
+!.env.template
 
 # User specific files
-chatgpt-code/
+sample-code/
+notebooks/example-writeup/

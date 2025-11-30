@@ -1,25 +1,19 @@
 # =============================================================================
 # Enterprise Security Incident Triage & Autonomous Runbook Agent
-# Python Dependencies
+# Python Dependencies (Combined)
 # =============================================================================
-# 
-# MINIMAL install (API only, stub mode):
-#   pip install -r requirements.txt
 #
-# WITH LLM (Vertex AI/Gemini):
-#   pip install -r requirements.txt -r requirements-llm.txt
-#
-# FULL install (databases, observability):
-#   pip install -r requirements.txt -r requirements-full.txt
-#
-# Or use pyproject.toml with uv:
+# This file contains ALL dependencies for pip users.
+# For uv users, use pyproject.toml instead:
 #   uv sync                    # minimal
 #   uv sync --extra llm        # with LLM
 #   uv sync --extra all        # full install
+#
+# pip install -r requirements.txt
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# Core Framework (always required)
+# Core Framework
 # -----------------------------------------------------------------------------
 fastapi>=0.109.0,<0.120.0
 uvicorn[standard]>=0.27.0,<0.35.0
@@ -37,3 +31,43 @@ tenacity>=8.2.0,<10.0.0
 # -----------------------------------------------------------------------------
 python-dotenv>=1.0.0,<2.0.0
 python-multipart>=0.0.6,<1.0.0
+
+# -----------------------------------------------------------------------------
+# LLM (Vertex AI / Gemini)
+# -----------------------------------------------------------------------------
+langchain>=0.1.0,<0.4.0
+langchain-community>=0.0.10,<0.4.0
+langchain-google-vertexai>=1.0.0,<3.0.0
+langchain-core>=0.1.0,<0.4.0
+google-cloud-aiplatform>=1.40.0,<2.0.0
+google-adk
+google-genai
+
+# -----------------------------------------------------------------------------
+# Database (PostgreSQL + Redis)
+# -----------------------------------------------------------------------------
+asyncpg>=0.29.0,<0.31.0
+psycopg2-binary>=2.9.9,<3.0.0
+pgvector>=0.2.4,<0.4.0
+redis>=5.0.0,<6.0.0
+upstash-redis>=1.0.0,<2.0.0
+sqlalchemy>=2.0.0,<3.0.0
+
+# -----------------------------------------------------------------------------
+# Observability
+# -----------------------------------------------------------------------------
+structlog>=24.1.0,<25.0.0
+opentelemetry-api>=1.22.0,<2.0.0
+opentelemetry-sdk>=1.22.0,<2.0.0
+opentelemetry-instrumentation-fastapi>=0.43b0,<1.0.0
+langsmith>=0.0.87,<1.0.0
+
+# -----------------------------------------------------------------------------
+# Development (optional)
+# -----------------------------------------------------------------------------
+# pytest>=7.4.0,<9.0.0
+# pytest-asyncio>=0.23.0,<0.25.0
+# pytest-cov>=4.1.0,<6.0.0
+# ruff>=0.1.0
+# black>=24.1.0
+# mypy>=1.8.0
