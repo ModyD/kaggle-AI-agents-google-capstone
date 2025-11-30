@@ -3,7 +3,7 @@
 [![Cloud Run](https://img.shields.io/badge/Cloud%20Run-Live-green?logo=google-cloud)](https://incident-triage-agent-226861216522.us-central1.run.app)
 [![API Docs](https://img.shields.io/badge/API-Docs-blue?logo=swagger)](https://incident-triage-agent-226861216522.us-central1.run.app/docs)
 
-A sophisticated AI-powered security incident response system built for the **Kaggle 5-Day AI Agents Intensive Course Capstone** (Enterprise Agents track).
+A sophisticated AI-powered security incident response system built for the **Kaggle 5-Day AI Agents Intensive Course Capstone Competition** (Enterprise Agents track).
 
 ## 🌐 Live Deployment
 
